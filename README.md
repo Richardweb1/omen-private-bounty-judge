@@ -42,10 +42,10 @@ Contract address:
 
 ## Ritual / Advanced Note
 
-The required version uses commit-reveal and works like a normal EVM contract.
+The required version uses commit-reveal. It hides answers during the submission phase and works on any EVM chain.
 
-A more Ritual-native version could keep answers encrypted until the judging step. In that design, a Ritual TEE could decrypt the answers privately and send all valid submissions to the LLM in one batch, not one call per answer.
+A Ritual-native version could keep answers encrypted until judging. A Ritual TEE could decrypt the answers privately and send all valid submissions to the LLM in one batch.
 
 ## Reflection
 
-In a bounty system, the bounty title, reward, deadlines, commitment hashes, and final winner should be public. The real answers should stay hidden during the submission phase so users cannot copy each other. A commitment hash can be public because it proves that a user submitted something without showing the answer. After the reveal phase, valid answers can be used for judging. The smart contract should handle deadlines, valid reveals, access control, and payout rules. The AI can help judge the quality of answers based on the rubric. A human owner should still finalize the winner, especially if the AI result is unclear or needs review.
+The bounty title, reward, deadlines, commitment hashes, and final winner should be public. The real answers should stay hidden during the submission phase so users cannot copy each other. A commitment hash can be public because it proves that a user submitted without showing the answer. After the reveal phase, valid answers can be judged. The smart contract should handle deadlines, valid reveals, access control, and payout. The AI can help judge answer quality based on the rubric. The human owner should still finalize the winner if the AI result needs review.
