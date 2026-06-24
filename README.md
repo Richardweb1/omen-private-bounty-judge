@@ -24,3 +24,12 @@ This project uses a commit-reveal flow so answers stay hidden during the submiss
 
 ```solidity
 keccak256(abi.encodePacked(answer, salt, msg.sender, bountyId))
+## Ritual Chain Deployment
+
+The contract was deployed on Ritual Chain.
+
+Contract address:
+
+```text
+0x7c1fa95de00fe816e0d896500c169a9fd2ce2d2d
+npx hardhat run scripts/deploy.ts --network ritual
