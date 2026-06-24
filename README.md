@@ -14,10 +14,6 @@ Contract address:
 
 `0x7c1fa95de00fe816e0d896500c169a9fd2ce2d2d`
 
-Deploy command:
-
-`npx hardhat run scripts/deploy.ts --network ritual`
-
 ## Lifecycle
 
 1. The bounty owner creates a bounty with a reward, title, rubric, submission deadline, and reveal deadline.
