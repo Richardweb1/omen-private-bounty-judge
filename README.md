@@ -1,35 +1,55 @@
 # Omen Private Bounty Judge
 
-A small privacy-preserving bounty judge project inspired by the Ritual AI Bounty Judge workshop and my Omen project.
+This is my submission for the Privacy-Preserving AI Bounty Judge homework.
 
-The goal is to prevent answer copying before judging. Instead of submitting public answers immediately, participants first submit a commitment hash. After the submission deadline, they reveal their answer and salt. The contract verifies the reveal and only valid revealed answers become eligible for AI judging.
-
-## Why this matters
-
-In a public bounty system, early answers can be copied or improved by later participants. This makes the competition unfair.
-
-This project uses a commit-reveal flow so answers stay hidden during the submission phase.
+The project adds a commit-reveal flow to a bounty judge contract so answers are not public during the submission phase.
 
 ## Contract
 
 `contracts/OmenPrivateBountyJudge.sol`
 
-## Lifecycle
-
-1. The bounty owner creates a bounty with a reward, title, rubric, submission deadline, and reveal deadline.
-2. Participants submit only a commitment hash during the submission phase.
-3. The real answers are not public during the submission phase.
-4. After the submission deadline, participants reveal their answer and salt.
-5. The contract verifies the reveal with:
-
-```solidity
-keccak256(abi.encodePacked(answer, salt, msg.sender, bountyId))
 ## Ritual Chain Deployment
-
-The contract was deployed on Ritual Chain.
 
 Contract address:
 
-```text
-0x7c1fa95de00fe816e0d896500c169a9fd2ce2d2d
-npx hardhat run scripts/deploy.ts --network ritual
+`0x7c1fa95de00fe816e0d896500c169a9fd2ce2d2d`
+
+Deploy command:
+
+`npx hardhat run scripts/deploy.ts --network ritual`
+
+## Lifecycle
+
+1. The bounty owner creates a bounty with a reward, title, rubric, submission deadline, and reveal deadline.
+2. Participants submit a commitment hash before the submission deadline.
+3. The real answer stays hidden during the submission phase.
+4. After the submission deadline, participants reveal their answer and salt.
+5. The contract checks that the reveal matches the original commitment.
+6. Only valid revealed answers are eligible for AI judging.
+7. After the reveal deadline, the owner calls `judgeAll`.
+8. The owner calls `finalizeWinner` to pay one winner.
+
+## Required Functions
+
+* `submitCommitment`
+* `revealAnswer`
+* `judgeAll`
+* `finalizeWinner`
+
+## Deliverables
+
+* Updated Solidity contract: `contracts/OmenPrivateBountyJudge.sol`
+* Lifecycle explanation: this README
+* Reveal test plan: `TEST_PLAN.md`
+* Architecture note: `ARCHITECTURE.md`
+* Deployment script: `scripts/deploy.ts`
+
+## Ritual / Advanced Note
+
+The required version uses commit-reveal and works like a normal EVM contract.
+
+A more Ritual-native version could keep answers encrypted until the judging step. In that design, a Ritual TEE could decrypt the answers privately and send all valid submissions to the LLM in one batch, not one call per answer.
+
+## Reflection
+
+In a bounty system, the bounty title, reward, deadlines, commitment hashes, and final winner should be public. The real answers should stay hidden during the submission phase so users cannot copy each other. A commitment hash can be public because it proves that a user submitted something without showing the answer. After the reveal phase, valid answers can be used for judging. The smart contract should handle deadlines, valid reveals, access control, and payout rules. The AI can help judge the quality of answers based on the rubric. A human owner should still finalize the winner, especially if the AI result is unclear or needs review.
