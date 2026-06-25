@@ -14,6 +14,8 @@ Contract address:
 
 `0x9F17Af865Ec8BF2337864BbFd05615B3bEF3Ca08`
 
+ Tx HASH : 0x17462304a5af7c70a67bb06ae78ff17e71e945ff90a8038765a58122d13d6fdd
+ 
 ## Lifecycle
 
 1. The bounty owner creates a bounty with a reward, title, rubric, submission deadline, and reveal deadline.
