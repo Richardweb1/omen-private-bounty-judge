@@ -12,7 +12,7 @@ The project adds a commit-reveal flow to a bounty judge contract so answers are 
 
 Contract address:
 
-`0x7c1fa95de00fe816e0d896500c169a9fd2ce2d2d`
+`0x9F17Af865Ec8BF2337864BbFd05615B3bEF3Ca08`
 
 ## Lifecycle
 
